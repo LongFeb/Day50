@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery/jquery.min.js"></script>
+    <script src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <link rel="stylesheet" href="ztree/metro.css">
+    <script src="vue/vue.js"></script>
+
+</head>
+<body>
+
+<div id="treeDiv" style="height: 100px;">
+    <input  style="width: 100px;" @focus="showTree(true)" @keydown.enter="search" v-model="name" />
+
+    <!--ul用于生成菜单树 注意默认class为ztree   -->
+    <ul id="treeDemo"  class="ztree" v-show="isShow" >
+
+    </ul>
+
+</div>
+
+</body>
+<script>
+    new Vue({
+        el:'#treeDiv',
+        data: function(){
+            return {
+                isShow:false,
+                name:'',
+                setting:{
+                    data: {
+                        key: {
+                            title:"t"
+                        },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    callback: {
+                        beforeClick: this.beforeClick,
+                        onClick: this.onClick
+                    },
+                    view: {
+                        fontCss: this.setFontCss
+                    }
+
+                },
+                zNodes:[
+                    { id:1, pId:0, name:"节点搜索演示 1", t:"id=1", open:true},
+                    { id:11, pId:1, name:"关键字可以是名字", t:"id=11"},
+                    { id:12, pId:1, name:"关键字可以是level", t:"id=12"},
+                    { id:13, pId:1, name:"关键字可以是id", t:"id=13"},
+                    { id:14, pId:1, name:"关键字可以是各种属性", t:"id=14"},
+                    { id:2, pId:0, name:"节点搜索演示 2", t:"id=2", open:true},
+                    { id:21, pId:2, name:"可以只搜索一个节点", t:"id=21"},
+                    { id:22, pId:2, name:"可以搜索节点集合", t:"id=22"},
+                    { id:23, pId:2, name:"搜我吧", t:"id=23"},
+                    { id:3, pId:0, name:"节点搜索演示 3", t:"id=3", open:true },
+                    { id:31, pId:3, name:"我的 id 是: 31", t:"id=31"},
+                    { id:32, pId:31, name:"我的 id 是: 32", t:"id=32"},
+                    { id:33, pId:32, name:"我的 id 是: 33", t:"id=33"}
+                ],
+                treeObj:''
+            }
+        },
+        methods:{
+            initTree:function(){
+                this.treeObj = $.fn.zTree.init($('#treeDemo'),this.setting,this.zNodes);
+                console.log(this.treeObj);
+            },
+            showTree:function(flag){
+                this.isShow=true;
+            },
+            onClick:function(event,treeId,treeNode){
+                console.log(treeId);
+                console.log(treeNode);
+            },
+            beforeClick:function(treeId, treeNode, clickFlag) {
+                console.log(treeId)
+            },
+            search:function(){
+                let nodes = this.treeObj.getNodesByParamFuzzy("name",this.name,null);
+                // console.log(this.treeObj.getNodes());
+                var treeNodes = this.treeObj.transformToArray(this.treeObj.getNodes());
+                //console.log(treeNodes);
+                for (let i = 0; i < treeNodes.length; i++) {
+                    treeNodes[i].highlight = false;
+                    this.treeObj.updateNode(treeNodes[i]);
+                }
+                //console.log(nodes);
+                for( var i=0, l=nodes.length; i<l; i++) {
+                    nodes[i].highlight = true;
+                    this.treeObj.updateNode(nodes[i]);
+                }
+            },
+            setFontCss:function(treeId, treeNode){
+                return treeNode.highlight ? {color:"#A60000", "font-weight":"bold"} : {color:"#333", "font-weight":"normal"};
+            }
+
+        },
+        mounted:function(){
+            this.initTree();
+
+
+        }
+    })
+</script>
+
+</html>

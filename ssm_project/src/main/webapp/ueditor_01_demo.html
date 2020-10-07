@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/project/">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="static/vue/vue.js"></script>
+    <script src="static/vue/vue-ueditor-wrap.min.js"></script>
+    <!--
+    vue+ueditor+VueUeditorWrap实现富文本：
+    1.前端配置
+    a.引入vue、VueUeditorWrap文件
+    b.编写vue代码，声明vue对象，引入第三方的VueUeditorWrap组件
+    c.在网页上添加自定义组件，配置自定义配置信息
+
+    2.后台配置
+    a.配置后端配置json对象，被富文本编辑器初始化的时候加载
+    b.配置ajax文件上传功能
+    -->
+    <div id="ueditor-div">
+        <!--
+        组件初始化，默认查找其defaultConfig：{UEDITOR_HOME_URL:t.env.BASE_URL?t.env.BASE_URL+"UEditor/":"/static/UEditor/",enableAutoSave:!1}
+        从"/static/UEditor/"去加载ueditor的资源文件ueditor.config.js（ueditor的前端配置）
+        需要自定义配置对象  :config用于指定自定义配置对象
+        -->
+        <vue-ueditor-wrap :config="ueditorConfig" v-model="msg"></vue-ueditor-wrap>
+    </div>
+
+    <script >
+        let vm = new Vue({
+            el:'#ueditor-div',
+            data:{
+                ueditorConfig:{
+                    UEDITOR_HOME_URL: 'static/ueditor/',   //设置富文本编辑器的前端资源文件加载的home目录 拼接路径
+                    serverUrl: 'doUeditor'                     //设置后端统一服务器接口 ：1.返回后端的配置json对象(ueditor初始化自动发送) 2.处理所有的ajax文件上传
+                },
+                msg: '<h2><img src="http://img.baidu.com/hi/jx2/j_0003.gif"/>Vue + UEditor + v-model双向绑定</h2>'
+            },
+            methods:{
+
+            },
+            components:{
+                VueUeditorWrap
+            }
+        })
+    </script>
+</head>
+<body>
+
+</body>
+</html>

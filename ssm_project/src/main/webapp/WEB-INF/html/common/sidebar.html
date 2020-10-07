@@ -1,0 +1,451 @@
+<html>
+<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+        <button class="btn btn-success">
+            <i class="ace-icon fa fa-signal"></i>
+        </button>
+
+        <button class="btn btn-info">
+            <i class="ace-icon fa fa-pencil"></i>
+        </button>
+
+        <button class="btn btn-warning">
+            <i class="ace-icon fa fa-users"></i>
+        </button>
+
+        <button class="btn btn-danger">
+            <i class="ace-icon fa fa-cogs"></i>
+        </button>
+    </div>
+
+    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+        <span class="btn btn-success"></span>
+
+        <span class="btn btn-info"></span>
+
+        <span class="btn btn-warning"></span>
+
+        <span class="btn btn-danger"></span>
+    </div>
+</div><!-- /.sidebar-shortcuts -->
+<ul class="nav nav-list" id="sidebar-menu">
+    <li data-level="1" v-for="r in resources">
+
+        <a
+                href="javascript:void(0);" class="dropdown-toggle"
+                :haschild="r.children!=undefined&&r.children.length>0?'true':'false'"  @click="changeArrow(r)"
+        >
+            <i class="menu-icon" :class="r.icon"></i>
+            <span class="menu-text" style="vertical-align: middle;"> {{r.name}} </span>
+            <b class="arrow " :class="r.arrow?' fa fa-angle-up':'fa fa-angle-down'"></b>
+        </a>
+        <b class="arrow"></b>
+
+        <ul class="submenu nav-hide" style="display:none;" v-if="r.children!=undefined&&r.children.length>0">
+            <li data-level="2" v-for="child in r.children">
+
+                <a :href="child.url"
+                        :id="'menu_'+child.url"
+                        :haschild="child.children!=undefined&&child.children.length>0"
+                >
+                    <i class="menu-icon " :class="child.icon"></i>
+                    <span class="menu-text"> {{child.name}} </span>
+                </a>
+                <b class="arrow"></b>
+
+            </li>
+        </ul>
+    </li>
+    <!--<li data-level="1">-->
+
+        <!--<a-->
+                <!--href="javascript:void(0);" class="dropdown-toggle"-->
+                <!--haschild="true"-->
+        <!--&gt;-->
+            <!--<i class="menu-icon fa fa-lastfm"></i>-->
+            <!--<span class="menu-text"-->
+                  <!--style="vertical-align: middle;"-->
+            <!--&gt; 单位管理 </span>-->
+            <!--<b class="arrow fa fa-angle-down"></b>-->
+        <!--</a>-->
+        <!--<b class="arrow"></b>-->
+
+        <!--<ul class="submenu nav-hide" style="display:none;">-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../office/office-detail.html"-->
+                        <!--id="menu_managercompanydetail"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 单位信息 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../user/user.html"-->
+                        <!--id="menu_managercompanyaccounts"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 单位账号 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../work/company/work.html"-->
+                        <!--id="menu_managercompanywork"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 电子台账 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--<li data-level="1">-->
+
+        <!--<a-->
+                <!--href="javascript:void(0);" class="dropdown-toggle"-->
+                <!--haschild="true"-->
+        <!--&gt;-->
+            <!--<i class="menu-icon fa fa-puzzle-piece"></i>-->
+            <!--<span class="menu-text"-->
+                  <!--style="vertical-align: middle;"-->
+            <!--&gt; 业务管理 </span>-->
+            <!--<b class="arrow fa fa-angle-down"></b>-->
+        <!--</a>-->
+        <!--<b class="arrow"></b>-->
+
+        <!--<ul class="submenu nav-hide" style="display:none;">-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/admin/work"-->
+                        <!--id="menu_manageradminwork"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 电子台账 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/qualification/index"-->
+                        <!--id="menu_managerqualificationindex"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 资质审核 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/demand/index"-->
+                        <!--id="menu_managerdemandindex"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 服务需求 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/examine/index"-->
+                        <!--id="menu_managerexamineindex"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 考核管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/app/index"-->
+                        <!--id="menu_managerappindex"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon "></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; APP管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/statute/index"-->
+                        <!--id="menu_managerstatuteindex"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-bolt"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 法律法规 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--<li data-level="1">-->
+
+        <!--<a-->
+                <!--href="javascript:void(0);" class="dropdown-toggle"-->
+                <!--haschild="true"-->
+        <!--&gt;-->
+            <!--<i class="menu-icon fa fa-group"></i>-->
+            <!--<span class="menu-text"-->
+                  <!--style="vertical-align: middle;"-->
+            <!--&gt; 机构用户 </span>-->
+            <!--<b class="arrow fa fa-angle-down"></b>-->
+        <!--</a>-->
+        <!--<b class="arrow"></b>-->
+
+        <!--<ul class="submenu nav-hide" style="display:none;">-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/area/area"-->
+                        <!--id="menu_managerarea"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-globe"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 区域管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/office/office"-->
+                        <!--id="menu_manageroffice"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-sitemap"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 机构管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../user/user-list.html"-->
+                        <!--id="menu_managersysuser"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-user"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 用户管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="/project/manager/role"-->
+                        <!--id="menu_managerrole"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-graduation-cap"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 角色管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--<li data-level="1">-->
+
+        <!--<a-->
+                <!--href="javascript:void(0);" class="dropdown-toggle"-->
+                <!--haschild="true"-->
+        <!--&gt;-->
+            <!--<i class="menu-icon fa fa-cogs"></i>-->
+            <!--<span class="menu-text"-->
+                  <!--style="vertical-align: middle;"-->
+            <!--&gt; 系统管理 </span>-->
+            <!--<b class="arrow fa fa-angle-down"></b>-->
+        <!--</a>-->
+        <!--<b class="arrow"></b>-->
+
+        <!--<ul class="submenu nav-hide" style="display:none;">-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../menu/menu.html"-->
+                        <!--id="menu_managermenu"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-list"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 菜单配置 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../dict/dict.html"-->
+                        <!--id="menu_managerdict"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-calculator"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 字典管理 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../log/log.html"-->
+                        <!--id="menu_managersyslog"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-copy"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; 日志查询 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--<li data-level="1">-->
+
+        <!--<a-->
+                <!--href="javascript:void(0);" class="dropdown-toggle"-->
+                <!--haschild="true"-->
+        <!--&gt;-->
+            <!--<i class="menu-icon fa fa-binoculars"></i>-->
+            <!--<span class="menu-text"-->
+                  <!--style="vertical-align: middle;"-->
+            <!--&gt; 系统监控 </span>-->
+            <!--<b class="arrow fa fa-angle-down"></b>-->
+        <!--</a>-->
+        <!--<b class="arrow"></b>-->
+
+        <!--<ul class="submenu nav-hide" style="display:none;">-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../ehcache/ehcache.html"-->
+                        <!--id="menu_managermonitorehcache"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-crosshairs"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; Ehcache监控 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+            <!--<li data-level="2">-->
+
+                <!--<a-->
+                        <!--href="../jvm/jvm.html"-->
+                        <!--id="menu_managermonitorjvm"-->
+                        <!--haschild="false"-->
+                <!--&gt;-->
+                    <!--<i class="menu-icon fa fa-flash"></i>-->
+                    <!--<span class="menu-text"-->
+                    <!--&gt; jvm监控 </span>-->
+                <!--</a>-->
+                <!--<b class="arrow"></b>-->
+
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+</ul><!-- /.nav-list -->
+<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+    <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+</div>
+
+<script>
+    let vm=new Vue({
+        el:'#sidebar-menu',
+        data:{
+            resources: [],
+        },
+        methods:{
+            //数组转多维
+            changeArray:function () {
+                setting={
+                    data:{//设置树的数据的配置
+                        simpleData: {//简单数据格式配置  一维结构节点数组 不设置默认是多维结构数组
+                            enable:true,  //开启使用简单数据格式
+                                // idKey: 'id', //设置节点中的id属性key  默认
+                                pIdKey: 'parentId' //设置父节点id属性key   与数据库中的字段需要对应
+                        }
+                    },
+                };
+                //初始化树(dom节点对象,配置对象,节点数组)
+                let zTreeObj = $.fn.zTree.init($('#treeOne'),setting,this.resources);
+                this.resources = zTreeObj.getNodes();//获取组装后的节点数组
+                $.fn.zTree.destroy("treeOne");
+            },
+            changeArrow:function (r) {
+                for(let i in this.resources){
+                    if(this.resources[i].id==r.id){
+                        r.arrow=!r.arrow;
+                    }else {
+                        this.resources[i].arrow=false; //默认false 向下
+                    }
+
+                }
+
+            }
+        },
+        created:function () {
+            let loginUser=sessionStorage.getItem("loginUser");
+            if(loginUser!=undefined){
+                loginUser=JSON.parse(loginUser);//登录对象转成js对象
+                this.resources=loginUser.resources;
+                for(let i in this.resources){
+                    this.resources[i].arrow=false; //默认false 向下
+                }
+                this.changeArray();
+            }
+        }
+    })
+
+</script>
+</html>
+

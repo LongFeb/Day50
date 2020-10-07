@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/ssm_project" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm_tk_mapper" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm_tk_mapper2" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/ssm_tk_mapper/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_generator/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_project/pom.xml" />
+        <option value="$PROJECT_DIR$/sorting/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tk_mapper2/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

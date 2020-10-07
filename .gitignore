@@ -1,0 +1,6 @@
+# Project exclude paths
+/sorting/target/
+/ssm_generator/target/
+/ssm_project/target/
+/ssm_tk_mapper/target/
+/ssm_tk_mapper2/target/

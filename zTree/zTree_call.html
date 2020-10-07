@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="jquery/jquery.min.js"></script>
+    <script src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <link rel="stylesheet" href="ztree/metro.css">
+    <script src="vue/vue.js"></script>
+
+</head>
+<body>
+
+<div id="treeDiv" style="height: 100px;">
+    <input  style="width: 100px;" @focus="showTree(true)"  v-model="name" />
+
+    <!--ul用于生成菜单树 注意默认class为ztree   -->
+    <ul id="treeDemo"  class="ztree" v-show="isShow" >
+
+    </ul>
+
+</div>
+
+</body>
+<script>
+    new Vue({
+        el: '#treeDiv',
+        //vue的data中，如果通过对象格式或者是箭头函数来声明绑定属性，在绑定属性中都不能使用this
+        //解决方案：声明函数方式，通过return返回绑定属性
+        data: function () {
+            return {
+                isShow: false,
+                name: '',
+                setting: {
+                    data: {
+                        // key: {
+                        //     title: "t"
+                        // },
+                        simpleData: {
+                            enable: true
+                        }
+                    },
+                    //beforeClick在点击事件执行前触发
+                    //onClick在点击事件执行时触发
+                    callback: {
+                        //beforeClick: this.beforeClick,
+                        onClick: this.onClick
+                    }
+                },
+                zNodes: [
+                    {id:1,pId:0,name: "射手"},
+                    {id:11,pId:1,name: "戏命师-烬"},
+                    {id:12,pId:1,name: "逆羽-霞"},
+                    {id:13,pId:1,name: "圣枪游侠-卢仙"},
+                    {id:14,pId:1,name: "伊泽瑞尔"},
+                    {id:2,pId:0,name: "法师"},
+                    {id:21,pId:2,name: "弗拉基米尔"},
+                    {id:22,pId:2,name: "发条魔灵"},
+                    {id:23,pId:2,name: "辛德拉"},
+                    {id:3,pId:0,name: "战士"},
+                    {id:31,pId:3,name: "诺克萨斯之手"},
+                    {id:32,pId:3,name: "德玛西亚之力"},
+                ],
+            }
+        },
+        methods: {
+            initTree: function () {
+                this.treeObj = $.fn.zTree.init($('#treeDemo'), this.setting, this.zNodes);
+                console.log(this.treeObj);
+            },
+            showTree: function (flag) {
+                this.isShow = flag;
+            },
+            onClick: function (event, treeId, treeNode) {
+                console.log(treeId);
+                console.log(treeNode);
+            },
+        },
+        mounted: function () {
+            this.initTree();
+        }
+    })
+</script>
+
+</html>
